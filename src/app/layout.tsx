@@ -23,6 +23,8 @@ const roboto = Roboto({
   subsets: ["latin"],
 });
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "FaithHub BD | Worldwide Top 1 Ecommerce",
   description: "Experience the next generation of e-commerce.",
@@ -43,15 +45,22 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const settings = await db.storeSettings.findUnique({ where: { id: "global_settings" }});
-  const freeShippingThreshold = settings?.freeShippingThreshold !== null ? settings?.freeShippingThreshold : 1500;
+  let settings = null;
+  let featuredProducts: any[] = [];
 
-  const featuredProducts = await db.product.findMany({
-    where: { isActive: true },
-    orderBy: { createdAt: 'desc' },
-    take: 2,
-    include: { images: { where: { isPrimary: true }, take: 1 } }
-  });
+  try {
+    settings = await db.storeSettings.findUnique({ where: { id: "global_settings" } });
+    featuredProducts = await db.product.findMany({
+      where: { isActive: true },
+      orderBy: { createdAt: 'desc' },
+      take: 2,
+      include: { images: { where: { isPrimary: true }, take: 1 } }
+    });
+  } catch (error) {
+    console.warn("Database connection skipped during build");
+  }
+
+  const freeShippingThreshold = settings?.freeShippingThreshold !== null ? settings?.freeShippingThreshold : 1500;
 
   const megaMenuFeatures = featuredProducts.map(p => ({
     id: p.id,
