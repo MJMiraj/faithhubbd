@@ -1,0 +1,41 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-brand: #EE7C00;
+  --color-brand-light: #F69D3B;
+  --color-brand-dark: #C96600;
+  
+  --font-inter: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-outfit: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-roboto: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: #FFFFFF;
+  --color-foreground: #000000;
+  --color-surface: #F9FAFB;
+}
+
+.dark {
+  --color-background: #000000;
+  --color-foreground: #FFFFFF;
+  --color-surface: #111111;
+}
+
+:root {
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
