@@ -32,16 +32,16 @@ export function Price({ amount, className = "" }: PriceProps) {
 
   if (!mounted) {
     // Return base BDT format during SSR to prevent layout shift
-    return <span className={className}>৳{amount.toLocaleString()}</span>;
+    return <span className={className}>৳ {amount.toLocaleString('en-US')}</span>;
   }
 
   const convertedAmount = amount * EXCHANGE_RATES[currency];
-  const symbol = CURRENCY_SYMBOLS[currency];
+  const symbol = CURRENCY_SYMBOLS[currency as keyof typeof CURRENCY_SYMBOLS];
   
   // Format based on currency (2 decimal places for non-BDT)
   const formatted = currency === "BDT" 
-    ? convertedAmount.toLocaleString() 
-    : convertedAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    ? convertedAmount.toLocaleString('en-US') 
+    : convertedAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   return <span className={className}>{symbol}{formatted}</span>;
 }

@@ -173,7 +173,7 @@ export function Navbar({
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                   className="text-gray-900 dark:text-white hover:opacity-50 transition-opacity hidden md:block p-2"
                 >
-                  {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                  {mounted ? (theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />) : <Moon className="w-4 h-4" />}
                 </button>
               </>
             )}
@@ -241,13 +241,13 @@ export function Navbar({
             </div>
             
             <div className="pt-6 border-t border-gray-100 dark:border-gray-900 flex gap-4">
-              <button 
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="flex-1 bg-gray-50 dark:bg-gray-900 p-4 rounded-xl flex items-center justify-center text-gray-900 dark:text-white font-bold"
-              >
-                {theme === "dark" ? <Sun className="w-5 h-5 mr-2" /> : <Moon className="w-5 h-5 mr-2" />}
-                {theme === "dark" ? "Light" : "Dark"}
-              </button>
+                <button 
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                  className="flex-1 bg-gray-50 dark:bg-gray-900 p-4 rounded-xl flex items-center justify-center text-gray-900 dark:text-white font-bold"
+                >
+                  {mounted ? (theme === "dark" ? <Sun className="w-5 h-5 mr-2" /> : <Moon className="w-5 h-5 mr-2" />) : <Moon className="w-5 h-5 mr-2" />}
+                  {mounted ? (theme === "dark" ? "Light" : "Dark") : "Dark"}
+                </button>
               
               <button 
                 onClick={() => {
