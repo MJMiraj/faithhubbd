@@ -11,7 +11,7 @@ function createPrismaClient() {
     password: dbUrl.password,
     database: dbUrl.pathname.replace("/", ""),
     ssl: { rejectUnauthorized: false },
-    connectionLimit: 10,
+    connectionLimit: 2,
     connectTimeout: 30000,
     acquireTimeout: 30000,
   });
