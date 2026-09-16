@@ -156,7 +156,7 @@ export function Navbar({
                   onClick={() => setLanguage(language === "en" ? "bn" : "en")}
                   className="text-gray-900 dark:text-white hover:opacity-50 transition-opacity hidden md:flex items-center gap-1 p-2 text-xs font-bold uppercase tracking-wider"
                 >
-                  <Globe className="w-4 h-4" /> {language}
+                  <Globe className="w-4 h-4" /> {mounted ? language : "en"}
                 </button>
                 <button 
                   onClick={() => {
@@ -167,7 +167,7 @@ export function Navbar({
                   }}
                   className="text-gray-900 dark:text-white hover:opacity-50 transition-opacity hidden md:flex items-center gap-1 p-2 text-xs font-bold uppercase tracking-wider"
                 >
-                  {useSettingsStore.getState().currency}
+                  {mounted ? useSettingsStore.getState().currency : "BDT"}
                 </button>
                 <button 
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -258,7 +258,7 @@ export function Navbar({
                 }}
                 className="flex-1 bg-gray-50 dark:bg-gray-900 p-4 rounded-xl flex items-center justify-center text-gray-900 dark:text-white font-bold"
               >
-                {useSettingsStore.getState().currency}
+                {mounted ? useSettingsStore.getState().currency : "BDT"}
               </button>
             </div>
           </nav>
