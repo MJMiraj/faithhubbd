@@ -2,10 +2,16 @@ import { PrismaClient } from "@prisma/client";
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
 import mariadb from "mariadb";
 
-const connectionString = (process.env.DATABASE_URL || "").replace("mysql://", "mariadb://");
-
-// We configure mariadb pool using the connection string from environment
-const pool = mariadb.createPool(connectionString);
+const dbUrl = new URL(process.env.DATABASE_URL || "mysql://localhost:3306/db");
+const pool = mariadb.createPool({
+  host: dbUrl.hostname,
+  port: Number(dbUrl.port) || 3306,
+  user: dbUrl.username,
+  password: dbUrl.password,
+  database: dbUrl.pathname.replace("/", ""),
+  ssl: { rejectUnauthorized: false },
+  connectionLimit: 10
+});
 const adapter = new PrismaMariaDb(pool);
 
 const globalForPrisma = globalThis as unknown as {
