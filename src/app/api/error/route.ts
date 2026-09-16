@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { db, dbUrl as originalDbUrl } from '@/lib/db';
 import mariadb from 'mariadb';
 
 export const dynamic = 'force-dynamic';
@@ -47,6 +47,7 @@ export async function GET() {
   result.env = {
     hasDatabaseUrl: !!process.env.DATABASE_URL,
     dbUrlLength: process.env.DATABASE_URL?.length,
+    originalDbUrl: originalDbUrl.href
   };
 
   return NextResponse.json(result);
